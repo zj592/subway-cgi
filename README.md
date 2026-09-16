@@ -58,7 +58,7 @@ gcc -o subway_console.exe src/main.c src/subway.c
 
 - 仓库附带一份**预编译的 Windows 二进制** `subway_cgi.cgi`，可直接部署；如需修改算法或页面，
   请用上方命令从 `src/` 重新编译。
-- 演示视频因体积过大（约 30MB）未纳入版本管理，本地 `*.mp4` 已被 `.gitignore` 忽略。
+
 
 ## 作者
 
