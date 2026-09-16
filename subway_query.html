@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>深圳地铁查询系统</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    
+    <!-- 配置Tailwind -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        accent: '#F59E0B',
+                        dark: '#1E293B',
+                        light: '#F8FAFC'
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style type="text/tailwindcss">
+        @layer utilities {
+            .shadow-soft { box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <div class="min-h-screen flex flex-col">
+        <!-- 头部 -->
+        <header class="bg-primary text-white shadow-md">
+            <div class="container mx-auto px-4 py-5">
+                <div class="flex items-center space-x-2">
+                    <i class="fa fa-subway text-2xl"></i>
+                    <h1 class="text-xl md:text-2xl font-bold">深圳地铁查询系统</h1>
+                </div>
+            </div>
+        </header>
+
+        <!-- 主要内容 -->
+        <main class="flex-grow container mx-auto px-4 py-8">
+            <!-- 查询表单 -->
+            <div class="max-w-2xl mx-auto bg-white rounded-xl shadow-soft p-6 md:p-8">
+                <h2 class="text-2xl font-bold mb-6 text-center">线路查询</h2>
+                
+                <!-- 已修复：添加端口号81 -->
+                <form method="get" action="http://localhost:81/cgi-bin/subway_cgi.cgi">
+                    <div class="flex flex-col md:flex-row gap-4 mb-6">
+                        <!-- 起点 -->
+                        <div class="flex-1">
+                            <label class="block text-sm text-gray-700 mb-1">起点站</label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
+                                    <i class="fa fa-map-marker"></i>
+                                </span>
+                                <input 
+                                    type="text" 
+                                    name="from" 
+                                    placeholder="例如：罗湖" 
+                                    required
+                                    class="w-full pl-10 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none"
+                                >
+                            </div>
+                        </div>
+                        
+                        <!-- 交换按钮 -->
+                        <div class="flex items-center justify-center">
+                            <button type="button" id="swapBtn" class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center hover:bg-gray-200">
+                                <i class="fa fa-exchange text-gray-600"></i>
+                            </button>
+                        </div>
+                        
+                        <!-- 终点 -->
+                        <div class="flex-1">
+                            <label class="block text-sm text-gray-700 mb-1">终点站</label>
+                            <div class="relative">
+                                <span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500">
+                                    <i class="fa fa-flag"></i>
+                                </span>
+                                <input 
+                                    type="text" 
+                                    name="to" 
+                                    placeholder="例如：福田" 
+                                    required
+                                    class="w-full pl-10 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/50 focus:border-primary outline-none"
+                                >
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- 提交按钮 -->
+                    <div class="text-center">
+                        <button type="submit" class="px-6 py-3 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors">
+                            <i class="fa fa-search mr-2"></i>查询路线
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </main>
+
+        <!-- 页脚 -->
+        <footer class="bg-dark text-gray-300 py-4 mt-8">
+            <div class="container mx-auto px-4 text-center text-sm">
+                <p>© 2023 深圳地铁查询系统</p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // 交换起点终点
+        document.getElementById('swapBtn').addEventListener('click', function() {
+            const from = document.querySelector('input[name="from"]');
+            const to = document.querySelector('input[name="to"]');
+            const temp = from.value;
+            from.value = to.value;
+            to.value = temp;
+        });
+    </script>
+</body>
+</html>

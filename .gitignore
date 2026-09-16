@@ -1,0 +1,6 @@
+# 演示视频（体积过大，不纳入版本管理）
+*.mp4
+
+# IDE / 工程配置文件
+.vscode/
+*.code-workspace
